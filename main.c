@@ -22,7 +22,7 @@ void alphabet_soup(char *message, bool encrypt) {
 }
 
 // Main entry point to cryptographer
-int main() {
+int main(int argc, char **argv) {
   int phraseLength = 144;
   char phrase[phraseLength];
   char encrypted_phrase[phraseLength];
@@ -33,10 +33,13 @@ int main() {
 
   fgets(phrase, phraseLength, stdin);
   // Encrypt
-  alphabet_soup(phrase, true);
-  printf("%s", phrase);
-  printf("\n");
-  // Decrypt
-  alphabet_soup(phrase, false);
-  printf("%s", phrase);
+  if (strcmp(argv[1], "encrypt") == 0) {
+    alphabet_soup(phrase, true);
+    printf("%s", phrase);
+  }
+  if (strcmp(argv[1], "decrypt") == 0) {
+    // Decrypt
+    alphabet_soup(phrase, false);
+    printf("%s", phrase);
+  }
 }
