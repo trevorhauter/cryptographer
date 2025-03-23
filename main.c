@@ -1,17 +1,23 @@
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
 // Very simple encryption func
-void alphabet_soup(char *message) {
+void alphabet_soup(char *message, bool encrypt) {
   int i;
   int asciiValue;
 
   for (i = 0; i < strlen(message); i++) {
     // Get the ascii value of the letter - increment one
-    asciiValue = (int)message[i] + 1;
-    // This converts it back to a lettr
-    message[i] = '0' + asciiValue;
+    if (encrypt == true) {
+      asciiValue = (int)message[i] + 1;
+    }
+    if (encrypt == false) {
+      asciiValue = (int)message[i] - 1;
+    }
+    // It gets converted back to a char automatically b/c it's a char type???
+    message[i] = asciiValue;
   }
 }
 
@@ -26,6 +32,11 @@ int main() {
   printf("):");
 
   fgets(phrase, phraseLength, stdin);
-  alphabet_soup(phrase);
+  // Encrypt
+  alphabet_soup(phrase, true);
+  printf("%s", phrase);
+  printf("\n");
+  // Decrypt
+  alphabet_soup(phrase, false);
   printf("%s", phrase);
 }
